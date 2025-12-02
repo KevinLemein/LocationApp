@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-public class Location extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static final String[] A = {"n/a", "fine", "coarse"};
     private static final String[] P = {"n/a", "low", "medium", "high"};
@@ -38,15 +38,11 @@ public class Location extends AppCompatActivity implements LocationListener {
         output = findViewById(R.id.output);
         mgr = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        // Display student name at the top
         log("===========================================");
         log("LOCATION TEST APP");
-        log("Student: Kevin Koros");
-        log("Course: MIS 6120 - Mobile Computing");
-        log("Lab 5: Location-Based Services");
+        log("Student: Kevin Lemein");
         log("===========================================\n");
 
-        // Check and request permissions
         if (checkLocationPermissions()) {
             initializeLocationServices();
         } else {
@@ -54,9 +50,6 @@ public class Location extends AppCompatActivity implements LocationListener {
         }
     }
 
-    /**
-     * Check if location permissions are granted
-     */
     private boolean checkLocationPermissions() {
         boolean fineLocation = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
@@ -65,9 +58,6 @@ public class Location extends AppCompatActivity implements LocationListener {
         return fineLocation && coarseLocation;
     }
 
-    /**
-     * Request location permissions at runtime
-     */
     private void requestLocationPermissions() {
         ActivityCompat.requestPermissions(this,
                 new String[]{
@@ -77,9 +67,6 @@ public class Location extends AppCompatActivity implements LocationListener {
                 PERMISSION_REQUEST_CODE);
     }
 
-    /**
-     * Handle permission request result
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -100,9 +87,6 @@ public class Location extends AppCompatActivity implements LocationListener {
         }
     }
 
-    /**
-     * Initialize location services after permissions are granted
-     */
     private void initializeLocationServices() {
         log("Location providers:");
         dumpProviders();
@@ -133,7 +117,6 @@ public class Location extends AppCompatActivity implements LocationListener {
 
         if (checkLocationPermissions() && best != null) {
             try {
-                // Request location updates every 15 seconds or 1 meter movement
                 mgr.requestLocationUpdates(best, 15000, 1, this);
                 log("\n✓ Started receiving location updates...\n");
             } catch (SecurityException e) {
@@ -155,8 +138,6 @@ public class Location extends AppCompatActivity implements LocationListener {
             }
         }
     }
-
-    // LocationListener interface methods
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
@@ -181,8 +162,6 @@ public class Location extends AppCompatActivity implements LocationListener {
                 ", status=" + S[status] +
                 ", extras=" + extras);
     }
-
-    // Helper methods
 
     private void log(String string) {
         output.append(string + "\n");
