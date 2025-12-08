@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LocationTest</string>
+    <string name="app_name">LocationApp</string>
     <string name="permission_required">Location permission is required</string>
     <string name="enable_gps">Please enable GPS in settings</string>
     <string name="location_updated">Location updated</string>
